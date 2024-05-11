@@ -10,6 +10,12 @@ defmodule Screens.V3Api do
     headers = extra_headers ++ api_key_headers(Application.get_env(:screens, :api_v3_key))
     url = build_url(route, params)
 
+    # Log the url
+    _ = Logger.info("[api_v3_get_json] url=#{url}")
+
+    # set ssl options
+    opts = Keyword.merge(opts, [ssl: [{:versions, [:'tlsv1.2']}]])
+
     with {:http_request, {:ok, response}} <-
            {:http_request,
             HTTPoison.get(
@@ -22,6 +28,9 @@ defmodule Screens.V3Api do
       {:ok, parsed}
     else
       {:http_request, e} ->
+        # Log the error
+        _ = Logger.error("[api_v3_get_json_error] error=#{inspect(e)}")
+
         log_api_error({:http_fetch_error, e})
 
       {:response_success, %{status_code: _status_code}} = response ->

@@ -18,11 +18,7 @@ secret_key_base =
   |> ExAws.request!()
   |> Map.fetch!("SecretString")
 
-api_v3_key =
-  (eb_env_name <> "-api-v3-key")
-  |> ExAws.SecretsManager.get_secret_value()
-  |> ExAws.request!()
-  |> Map.fetch!("SecretString")
+api_v3_key = "285ef70c282744c9863f7540b5ed2faa"
 
 gds_dms_password =
   "gds-dms-password"

@@ -37,6 +37,10 @@ const routeToPill = (route: string, routeId: string): PillType => {
     return { routeName: route, routePillColor: "silver" };
   }
 
+  if (routeId && routeId.startsWith("Green")) {
+    return { routeName: routeId.substring(6), routePillColor: "green" };
+  }
+
   return { routeName: route, routePillColor: "yellow" };
 };
 
@@ -81,6 +85,7 @@ const sectionPillMapping: Record<string, PillType> = {
   cr: { routeName: "CR", routePillColor: "purple" },
   silver: { routeName: "SL", routePillColor: "silver" },
   bus: { routeName: "BUS", routePillColor: "yellow" },
+  green: { routeName: "GL", routePillColor: "green" },
 };
 
 const sectionPillToPill = (pill: string): PillType => {
