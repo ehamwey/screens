@@ -1,1 +1,4 @@
+
+<meta name="theme-color" content="#171f26" />
+<link href='https://fonts.googleapis.com/css?family=League Spartan:200,400,500,600,700' rel='stylesheet'>
 <div id="app" data-last-refresh="<%= @last_refresh %>" data-environment-name="<%= @environment_name %>"></div>
