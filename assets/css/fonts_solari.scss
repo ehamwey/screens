@@ -3,17 +3,17 @@
 // since we can't access Typekit from the Solari signs due to SSL issues.
 
 @mixin font--display--65medium {
-  font-family: Inter, sans-serif;
+  font-family: League Spartan, sans-serif;
   font-weight: 600;
 }
 
 @mixin font--display--75bold {
-  font-family: Inter, sans-serif;
+  font-family: League Spartan, sans-serif;
   font-weight: 700;
 }
 
 @mixin font--text--55roman {
-  font-family: Inter, sans-serif;
+  font-family: League Spartan, sans-serif;
   font-weight: 400;
 }
 @mixin font--text--55regular {
@@ -21,18 +21,18 @@
 }
 
 @mixin font--text--65medium {
-  font-family: Inter, sans-serif;
+  font-family: League Spartan, sans-serif;
   font-weight: 500;
 }
 
 @mixin font--text--75bold {
-  font-family: Inter, sans-serif;
+  font-family: League Spartan, sans-serif;
   font-weight: 700;
 }
 
 // https://rsms.me/inter/
 
 @mixin font--paragraph--regular {
-  font-family: Inter;
+  font-family: League Spartan;
   font-weight: 400;
 }
