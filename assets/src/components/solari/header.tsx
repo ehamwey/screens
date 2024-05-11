@@ -12,7 +12,7 @@ const Header = ({
     .environmentName;
 
   const currentTime = formatTimeString(currentTimeString);
-  const subtitle = overhead ? `${sections[0].name} Trips` : "Upcoming Trips";
+  const subtitle = overhead ? `${sections[0].name} Trips` : "30 Dighton Street";
 
   return (
     <div className="header">
