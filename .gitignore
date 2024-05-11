@@ -46,3 +46,6 @@ npm-debug.log
 
 # Detritus left behind by macOS Finder
 .DS_Store
+
+# Api keys
+.envrc

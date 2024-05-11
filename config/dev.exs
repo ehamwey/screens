@@ -1,4 +1,5 @@
 use Mix.Config
+require Logger
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
@@ -26,6 +27,9 @@ config :screens,
   gds_dms_password: System.get_env("GDS_DMS_PASSWORD"),
   mercury_api_key: System.get_env("MERCURY_API_KEY"),
   config_fetcher: Screens.Config.State.LocalFetch
+
+# Log api key
+_ = Logger.debug("[api_v3_key] key=#{System.get_env("API_V3_KEY")}")
 
 config :screens, ScreensWeb.AuthManager, secret_key: "secret key"
 
