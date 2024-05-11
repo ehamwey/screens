@@ -1,18 +1,19 @@
 .base-departure-time {
-  line-height: 1em;
+  margin-bottom: -15px;
+  margin-top: -10px;
 }
 
 .base-departure-time__text {
   @include font--text--75bold;
   font-size: 1em;
-  line-height: 1.185em;
+  line-height: 1em;
 }
 
 .base-departure-time__minutes {
   @include font--text--75bold;
   font-size: 1em;
   margin-right: 0.0694em;
-  line-height: 1.185em;
+  line-height: 1em;
 }
 
 .base-departure-time__minutes-label {
