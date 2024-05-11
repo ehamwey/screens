@@ -5,6 +5,8 @@ defmodule Screens.Application do
 
   use Application
 
+
+
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
 
@@ -12,6 +14,7 @@ defmodule Screens.Application do
     children = [
       # Start the endpoint when the application starts
       ScreensWeb.Endpoint,
+      # {Phoenix.PubSub, [name: Screens.PubSub, adapter: Phoenix.PubSub.PG2]},
       # Starts a worker by calling: Screens.Worker.start_link(arg)
       # {Screens.Worker, arg},
       Screens.Config.State.Supervisor,
