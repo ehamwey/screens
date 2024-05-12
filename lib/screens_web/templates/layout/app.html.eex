@@ -7,6 +7,12 @@
     <title>Screens</title>
     <link rel="stylesheet" href="https://use.typekit.net/emd6vhv.css">
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/#{@app_id}.css") %>"/>
+    <meta name="theme-color" content="#171f26" />
+    <meta name="apple-mobile-web-app-title" content="MBTA Screens">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   </head>
   <body class="<%= @body_class %>">
     <%= render @view_module, @view_template, assigns %>

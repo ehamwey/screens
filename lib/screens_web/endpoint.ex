@@ -13,7 +13,7 @@ defmodule ScreensWeb.Endpoint do
     at: "/",
     from: :screens,
     gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    only: ~w(css fonts images js favicon.ico robots.txt apple-touch-icon.png manifest.json)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

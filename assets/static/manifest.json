@@ -1,0 +1,14 @@
+{
+    "name": "MBTA Screens",
+  
+    "short_name": "Screens",
+  
+    "description": "Screens for various MBTA services.",
+  
+    "scope": "/",
+  
+    "display": "standalone",
+  
+    "theme_color": "#171f26"
+  }
+  
