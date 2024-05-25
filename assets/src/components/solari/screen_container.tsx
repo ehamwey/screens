@@ -36,7 +36,7 @@ const DefaultScreenLayout = ({ apiResponse }): JSX.Element => {
           currentTimeString={apiResponse.current_time}
         />
       )}
-      {apiResponse.station_name === "The Dighton" && <BlueBikes />}
+      <BlueBikes screenName={apiResponse.station_name} />
     </div>
   );
 };

@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 import { StationStatus, StationInformation } from 'gbfs-typescript-types/v3.0';
-import { classWithModifiers } from "util/util";
-import { PlaceholderRoutePill, DepartureRoutePill } from "./route_pill";
+import { DepartureRoutePill } from "./route_pill";
 import BaseDepartureDestination from "Components/eink/base_departure_destination";
-import BaseDepartureTime from "Components/eink/base_departure_time";
 
-const BlueBikeStations: string[] = [
-  'f8351255-0de8-11e7-991c-3863bb43a7d0', 'f83512c9-0de8-11e7-991c-3863bb43a7d0'];
 
 type StationInfo = {
   num_bikes_available: number;
@@ -19,18 +15,26 @@ type StationData = {
   [key: string]: StationInfo;
 }
 
-const parseStationName = (name?: string) => {
-  if (name?.includes("Brighton Center")) {
-    return "Brighton Center"
-  } else {
-    return name;
-  }
-
+type BlueBikesProps = {
+  screenName: string;
 }
 
-const BlueBikes = () => {
+const BlueBikes = ({ screenName }: BlueBikesProps) => {
+  let BlueBikeStations: string[] = [];
+  switch (screenName) {
+    case "The Dighton":
+      BlueBikeStations = ['f8351255-0de8-11e7-991c-3863bb43a7d0', 'f83512c9-0de8-11e7-991c-3863bb43a7d0']
+      break;
+    case "91 Glen":
+      BlueBikeStations = ['25cc602a-152a-4abe-9df8-a131d0a5d94b', '42886366-9cbf-432c-ba84-beef38877c87', '13681246-4bf8-444a-a908-fa165e4ad298']
+      break;
+    default:
+      break;
+  }
 
-  const [stationInfo, setStationInfo] = useState<StationInformation>({});
+
+
+  const [stationInfo, setStationInfo] = useState<StationInformation>();
   fetch("https://gbfs.lyft.com/gbfs/1.1/bos/en/station_information.json")
     .then((response) => response.json())
     .then((result: StationInformation) => setStationInfo(result));
@@ -80,7 +84,7 @@ const BlueBikes = () => {
               <DepartureRoutePill route="BIKE" routeId="Bike-pl" />
 
               <div className="departure-destination">
-                {(stationInfo && stationInfo.data && stationInfo.data.stations) && <BaseDepartureDestination destination={parseStationName(stationInfo.data.stations.find((station) => station.station_id == station_id)?.name)} />}
+                {(stationInfo && stationInfo.data && stationInfo.data.stations) && <BaseDepartureDestination destination={stationInfo.data.stations.find((station) => station.station_id == station_id)?.name} />}
               </div>
               <div
                 className={"departure-time"}

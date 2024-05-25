@@ -3,11 +3,17 @@ import React from "react";
 const splitDestination = (destination) => {
   const viaPattern = /(.+) (via .+)/;
   const parenPattern = /(.+) (\(.+)/;
+  const atPattern = /(.+) (at .+)/;
+  const dashPattern = /(.+) (\- .+)/
 
   if (viaPattern.test(destination)) {
     return viaPattern.exec(destination).slice(1);
   } else if (parenPattern.test(destination)) {
     return parenPattern.exec(destination).slice(1);
+  } else if (dashPattern.test(destination)) {
+    return [dashPattern.exec(destination).slice(1)[0], dashPattern.exec(destination).slice(1)[1].substring(2)];
+  } else if (atPattern.test(destination)) {
+    return atPattern.exec(destination).slice(1);
   } else {
     return [destination];
   }
