@@ -15,7 +15,7 @@ import BlueBikes from "./bluebikes";
 const DefaultScreenLayout = ({ apiResponse }): JSX.Element => {
   const sizeModifier = apiResponse.overhead ? "size-large" : "size-normal";
   // const images = require('../../../static/psa');
-
+  console.log('api ', apiResponse);
   return (
     <div className={classWithModifier("screen-container", sizeModifier)}>
       <Header
@@ -36,7 +36,7 @@ const DefaultScreenLayout = ({ apiResponse }): JSX.Element => {
           currentTimeString={apiResponse.current_time}
         />
       )}
-      <BlueBikes />
+      {apiResponse.station_name === "The Dighton" && <BlueBikes />}
     </div>
   );
 };

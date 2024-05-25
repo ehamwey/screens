@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-import { StationStatus } from 'gbfs-typescript-types/v3.0';
+import { StationStatus, StationInformation } from 'gbfs-typescript-types/v3.0';
 import { classWithModifiers } from "util/util";
 import { PlaceholderRoutePill, DepartureRoutePill } from "./route_pill";
 import BaseDepartureDestination from "Components/eink/base_departure_destination";
 import BaseDepartureTime from "Components/eink/base_departure_time";
 
 const BlueBikeStations: string[] = [
-  'f83512c9-0de8-11e7-991c-3863bb43a7d0'];
+  'f8351255-0de8-11e7-991c-3863bb43a7d0', 'f83512c9-0de8-11e7-991c-3863bb43a7d0'];
 
 type StationInfo = {
   num_bikes_available: number;
@@ -19,7 +19,21 @@ type StationData = {
   [key: string]: StationInfo;
 }
 
+const parseStationName = (name?: string) => {
+  if (name?.includes("Brighton Center")) {
+    return "Brighton Center"
+  } else {
+    return name;
+  }
+
+}
+
 const BlueBikes = () => {
+
+  const [stationInfo, setStationInfo] = useState<StationInformation>({});
+  fetch("https://gbfs.lyft.com/gbfs/1.1/bos/en/station_information.json")
+    .then((response) => response.json())
+    .then((result: StationInformation) => setStationInfo(result));
 
   const [bikeStationData, setBikeStationData] = useState<StationData>({});
 
@@ -39,6 +53,7 @@ const BlueBikes = () => {
               }
             }
           });
+          console.log(nextData);
           setBikeStationData(nextData);
         })
         .catch((error) => console.error(error));
@@ -49,9 +64,8 @@ const BlueBikes = () => {
       clearInterval(interval);
     }
   }, []);
-  console.log(bikeStationData["f83512c9-0de8-11e7-991c-3863bb43a7d0"]);
   return (
-    <div>
+    <div key="bikes">
       <div className="section section--normal">
         <div className="section-list section-header"><span className="section-header__name">Bikes</span></div>
 
@@ -59,25 +73,30 @@ const BlueBikes = () => {
       <div
         className={"departure-container departure-container--group-start departure-container--group-end section section-list-container departures-container section--normal"}
       >
-        <div className={"departure departure--no-via "}>
+        {Object.entries(bikeStationData).sort(([a], [b]) => b.localeCompare(a)).map(([station_id, station]) => {
+          return (
+            <div className={"departure departure--no-via "} key={station_id}>
 
-          <DepartureRoutePill route="BIKE" routeId="Bike-pl" />
+              <DepartureRoutePill route="BIKE" routeId="Bike-pl" />
 
-          <div className="departure-destination">
-            <BaseDepartureDestination destination={"Brighton Center"} />
-          </div>
-          <div
-            className={"departure-time"}
-          >
-            <div className="base-departure-time bike_count">
-              {bikeStationData["f83512c9-0de8-11e7-991c-3863bb43a7d0"] && <>
-                <span className="base-departure-time__timestamp ">{(bikeStationData["f83512c9-0de8-11e7-991c-3863bb43a7d0"].num_bikes_available)}</span>
-                <span className="base-departure-time__ampm">{"🚲"}</span>{" "}
-                <span className="base-departure-time__timestamp ">{(bikeStationData["f83512c9-0de8-11e7-991c-3863bb43a7d0"].num_ebikes_available)}</span>
-                <span className="base-departure-time__ampm">{"⚡️"}</span> </>}
+              <div className="departure-destination">
+                {(stationInfo && stationInfo.data && stationInfo.data.stations) && <BaseDepartureDestination destination={parseStationName(stationInfo.data.stations.find((station) => station.station_id == station_id)?.name)} />}
+              </div>
+              <div
+                className={"departure-time"}
+              >
+                <div className="base-departure-time bike_count">
+                  {station && <>
+                    <span className="base-departure-time__timestamp ">{(station.num_bikes_available)}</span>
+                    <span className="base-departure-time__ampm">{"🚲"}</span>{" "}
+                    <span className="base-departure-time__timestamp ">{(station.num_ebikes_available)}</span>
+                    <span className="base-departure-time__ampm">{"⚡️"}</span> </>}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          )
+        })}
+
       </div>
     </div>
 

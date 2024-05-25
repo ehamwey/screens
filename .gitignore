@@ -49,3 +49,6 @@ npm-debug.log
 
 # Api keys
 .envrc
+
+# piped output
+nohup.out
