@@ -2,6 +2,7 @@ import React from "react";
 
 import { PagedSection, Section } from "Components/solari/section";
 import { classWithModifier } from "Util/util";
+import BlueBikes from "./bluebikes";
 
 interface Props {
   sections: object[];
@@ -36,15 +37,17 @@ const SectionList = React.forwardRef(
             : Section;
 
           return (
-            <SectionComponent
-              {...section}
-              numRows={sectionSizes[i]}
-              sectionHeaders={sectionHeaders}
-              currentTimeString={currentTimeString}
-              overhead={overhead}
-              isAnimated={!isDummy}
-              key={section.name}
-            />
+            <>
+              <SectionComponent
+                {...section}
+                numRows={sectionSizes[i]}
+                sectionHeaders={sectionHeaders}
+                currentTimeString={currentTimeString}
+                overhead={overhead}
+                isAnimated={!isDummy}
+                key={section.name}
+              />
+            </>
           );
         })}
       </div>

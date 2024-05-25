@@ -10,6 +10,7 @@ import {
 import BaseDepartureDestination from "Components/eink/base_departure_destination";
 import { classWithModifier, classWithModifiers } from "Util/util";
 import { standardTimeRepresentation } from "Util/time_representation";
+import BlueBikes from "./bluebikes";
 
 const camelizeDepartureObject = ({
   id,
@@ -138,7 +139,7 @@ interface PagedDepartureState {
 class PagedDeparture extends React.Component<
   PagedDepartureProps,
   PagedDepartureState
-> {
+  > {
   interval: number | null;
 
   constructor(props: PagedDepartureProps) {
@@ -259,7 +260,7 @@ class PagedDeparture extends React.Component<
                         transform: `translateX(${
                           selectedRightOffset * -(pillWidth + pillSpace) -
                           pillOffset
-                        }px)`,
+                          }px)`,
                       }}
                     ></div>
                   )}
@@ -275,7 +276,7 @@ class PagedDeparture extends React.Component<
                         transform: `translateX(${
                           selectedRightOffset * -(pillWidth + pillSpace) -
                           pillOffset
-                        }px)`,
+                          }px)`,
                       }}
                     ></div>
                   )}
@@ -341,17 +342,17 @@ const DepartureList = ({
 
           const transitionProps = isImminent
             ? {
-                timeout: { exit: 400 },
-                classNames: classWithModifier("departure-animated", "arr-brd"),
-                enter: false,
-                exit: true,
-              }
+              timeout: { exit: 400 },
+              classNames: classWithModifier("departure-animated", "arr-brd"),
+              enter: false,
+              exit: true,
+            }
             : {
-                timeout: { enter: 400 },
-                classNames: classWithModifier("departure-animated", "normal"),
-                enter: true,
-                exit: false,
-              };
+              timeout: { enter: 400 },
+              classNames: classWithModifier("departure-animated", "normal"),
+              enter: true,
+              exit: false,
+            };
 
           return (
             <CSSTransition {...transitionProps} key={departure.id}>

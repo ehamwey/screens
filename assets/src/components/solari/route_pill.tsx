@@ -41,6 +41,10 @@ const routeToPill = (route: string, routeId: string): PillType => {
     return { routeName: routeId.substring(6), routePillColor: "green" };
   }
 
+  if (routeId && routeId.startsWith("Bike")) {
+    return { routeName: "BIKE", routePillColor: "baby" }
+  }
+
   return { routeName: route, routePillColor: "yellow" };
 };
 
@@ -56,7 +60,12 @@ const Pill = ({ routeName, routePillColor }: PillType): JSX.Element => {
     routeName = (
       <img className="departure-route--icon" src="/images/bus-black.svg"></img>
     );
+  } else if (routeName === "BIKE") {
+    routeName = (
+      <img className="departure-route--icon" src="/images/bike.svg"></img>
+    );
   }
+
 
   return (
     <div className={classWithModifier("departure-route", routePillColor)}>

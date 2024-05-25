@@ -40,6 +40,7 @@
   }
 
   .header__time {
+    @include font--text--35light;
     font-size: 160px;
     font-weight: 200;
     line-height: 90px;
@@ -58,6 +59,7 @@
     font-size: 38px;
     margin-top: 6px;
     line-height: 40px;
+    @include font--text--35light;
     font-weight: 200;
     padding-left: 6px;
 

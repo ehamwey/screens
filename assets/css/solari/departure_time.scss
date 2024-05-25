@@ -6,6 +6,10 @@
   display: inline-block;
   vertical-align: middle;
 
+  .bike_count {
+    margin-right: -60px;
+  }
+
   &--animated {
     animation: pulse 500ms cubic-bezier(0.65, 0, 0.35, 1) infinite;
   }

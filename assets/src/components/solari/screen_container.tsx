@@ -10,9 +10,11 @@ import useApiResponse from "Hooks/use_api_response";
 
 import { SOLARI_REFRESH_MS } from "Constants";
 import { useLocation } from "react-router-dom";
+import BlueBikes from "./bluebikes";
 
 const DefaultScreenLayout = ({ apiResponse }): JSX.Element => {
   const sizeModifier = apiResponse.overhead ? "size-large" : "size-normal";
+  // const images = require('../../../static/psa');
 
   return (
     <div className={classWithModifier("screen-container", sizeModifier)}>
@@ -34,6 +36,7 @@ const DefaultScreenLayout = ({ apiResponse }): JSX.Element => {
           currentTimeString={apiResponse.current_time}
         />
       )}
+      <BlueBikes />
     </div>
   );
 };
