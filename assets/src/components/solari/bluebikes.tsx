@@ -5,6 +5,12 @@ import { DepartureRoutePill } from "./route_pill";
 import BaseDepartureDestination from "Components/eink/base_departure_destination";
 
 
+const Loading = () => {
+  return (
+    <div className="base-departure-destination__primary" style={{ animation: 'pulse 2.0s cubic-bezier(0.65, 0, 0.35, 1) infinite' }}>Loading...</div>
+  )
+}
+
 type StationInfo = {
   num_bikes_available: number;
   num_docks_available: number;
@@ -25,8 +31,8 @@ const BlueBikes = ({ screenName }: BlueBikesProps) => {
     case "The Dighton":
       BlueBikeStations = ['f8351255-0de8-11e7-991c-3863bb43a7d0', 'f83512c9-0de8-11e7-991c-3863bb43a7d0']
       break;
-    case "91 Glen":
-      BlueBikeStations = ['25cc602a-152a-4abe-9df8-a131d0a5d94b', '42886366-9cbf-432c-ba84-beef38877c87', '13681246-4bf8-444a-a908-fa165e4ad298']
+    case "39 Pearson":
+      BlueBikeStations = ['f834b50a-0de8-11e7-991c-3863bb43a7d0', 'f834b49d-0de8-11e7-991c-3863bb43a7d0', 'baab0b05-a028-4147-8432-a2726c7e48ea', 'f834b42d-0de8-11e7-991c-3863bb43a7d0']
       break;
     default:
       break;
@@ -35,14 +41,15 @@ const BlueBikes = ({ screenName }: BlueBikesProps) => {
 
 
   const [stationInfo, setStationInfo] = useState<StationInformation>();
-  fetch("https://gbfs.lyft.com/gbfs/1.1/bos/en/station_information.json")
-    .then((response) => response.json())
-    .then((result: StationInformation) => setStationInfo(result));
 
   const [bikeStationData, setBikeStationData] = useState<StationData>({});
 
   useEffect(() => {
     function getBikes() {
+      fetch("https://gbfs.lyft.com/gbfs/1.1/bos/en/station_information.json")
+        .then((response) => response.json())
+        .then((result: StationInformation) => setStationInfo(result));
+
       console.log("updating bluebikes data");
       fetch("https://gbfs.lyft.com/gbfs/1.1/bos/en/station_status.json")
         .then((response) => response.json())
@@ -84,15 +91,15 @@ const BlueBikes = ({ screenName }: BlueBikesProps) => {
               <DepartureRoutePill route="BIKE" routeId="Bike-pl" />
 
               <div className="departure-destination">
-                {(stationInfo && stationInfo.data && stationInfo.data.stations) && <BaseDepartureDestination destination={stationInfo.data.stations.find((station) => station.station_id == station_id)?.name} />}
+                {(stationInfo && stationInfo.data && stationInfo.data.stations) ? <BaseDepartureDestination destination={stationInfo.data.stations.find((station) => station.station_id == station_id)?.name} /> : <Loading />}
               </div>
               <div
                 className={"departure-time"}
               >
                 <div className="base-departure-time bike_count">
                   {station && <>
-                    <span className="base-departure-time__timestamp ">{(station.num_bikes_available)}</span>
-                    <span className="base-departure-time__ampm">{"🚲"}</span>{" "}
+                    <span className="base-departure-time__timestamp ">{(station.num_bikes_available - station.num_ebikes_available)}</span>
+                    <img style={{marginBottom: 12, marginRight: 12}} className="departure-route--icon" src="/images/bike-black.svg"></img>{" "}
                     <span className="base-departure-time__timestamp ">{(station.num_ebikes_available)}</span>
                     <span className="base-departure-time__ampm">{"⚡️"}</span> </>}
                 </div>
