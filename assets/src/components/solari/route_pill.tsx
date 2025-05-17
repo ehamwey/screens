@@ -119,10 +119,12 @@ const routeIdMapping: Record<string, string> = {
   "CR-Middleborough": "MID",
   "CR-Kingston": "KNG",
   "CR-Greenbush": "GRB",
+  "Red": "RL",
 };
 
 const PagedDepartureRoutePill = ({ route, routeId, selected }): JSX.Element => {
   const isCommuterRail = routeId.startsWith("CR-");
+  const isRedLine = routeId.startsWith("Red");
   const isSlashRoute = route.includes("/");
 
   const selectedModifier = selected ? "selected" : "unselected";
@@ -139,7 +141,7 @@ const PagedDepartureRoutePill = ({ route, routeId, selected }): JSX.Element => {
     modifiers
   );
 
-  const routeText = routeId.startsWith("CR-") ? routeIdMapping[routeId] : route;
+  const routeText = routeId.startsWith("CR-") || isRedLine ? routeIdMapping[routeId] : route;
 
   return (
     <div className={pillClass}>
